@@ -9,12 +9,8 @@ object HandshakeCalculator {
     fun calculateHandshake(number: Int): List<Signal> {
         val actions: MutableList<Signal> = mutableListOf()
 
-        listOf(1, 2, 4, 8).forEach { bitPosition ->
-            bitPositionMapToSignals[bitPosition]?.let { signal ->
-                if (number and bitPosition == bitPosition) actions.add(
-                    signal
-                )
-            }
+        Signal.values().forEach { signal ->
+            if (signal.shallWeAdd(number)) actions.add(signal)
         }
 
         if (number and 16 == 16) {
